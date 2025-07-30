@@ -1,100 +1,189 @@
-# 🖊️ JournAI - Writing Journal Page
+# JournAI 📝✨
 
-A rich text journal writing interface with AI-powered mood analysis.
+> AI-Powered Journaling & Mood Tracking Application
 
-## ✨ Features
+JournAI is a modern journaling application that combines the power of artificial intelligence with personal reflection to help users track their mood, gain insights, and improve their mental wellness through intelligent journaling.
 
-### 🧱 UI Components
+## 🚀 What is JournAI?
 
-1. **Top Navigation Bar**
+JournAI is a full-stack application that helps you:
+- Write and organize your daily thoughts and experiences
+- Track your mood and emotional patterns over time
+- Get AI-powered insights and reflection prompts
+- Visualize your mental wellness journey through analytics
+- Access your journal from anywhere with a beautiful, responsive interface
 
-   - App logo and name
-   - Navigation links (Write, Calendar, Insights)
-   - Auth-aware buttons (Login/Signup or Profile dropdown)
+## 🏗️ Project Structure
 
-2. **Rich Text Editor (TipTap)**
+This project consists of two main components:
 
-   - Rich text formatting (Bold, Italic, Headers, Lists)
-   - Placeholder text guidance
-   - Character count (10,000 limit)
-   - Clean, modern interface
-
-3. **AI Analysis (Gemini)**
-
-   - Mood detection with emoji representation
-   - Content summary generation
-   - Detailed reasoning for mood analysis
-   - Fallback responses for reliability
-
-4. **Save Functionality**
-   - Auth-gated saving
-   - Login prompts for unauthenticated users
-   - Success feedback and status indicators
-
-## 🛠️ Setup Instructions
-
-### 1. Environment Variables
-
-Create `.env.local` in the client directory:
-
-```bash
-# Required: Google Gemini AI API Key
-GEMINI_API_KEY=your_gemini_api_key_here
-
-# Required: Clerk Authentication
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
-CLERK_SECRET_KEY=your_clerk_secret_key_here
-
-# Optional: Clerk URLs (defaults work for most cases)
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
-NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL=/write
-NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL=/write
+```
+JournAI/
+├── client/          # Frontend (Next.js + React)
+├── server/          # Backend (Java Spring Boot)
+├── k8s-manifests/   # Kubernetes deployment files
+└── docker-compose.yml
 ```
 
-### 2. Install Dependencies
+### Frontend (Client)
+- **Technology**: Next.js 15 with React and TypeScript
+- **Styling**: Tailwind CSS with custom components
+- **Authentication**: Clerk for user management
+- **AI Integration**: Google's Generative AI for intelligent features
+- **Rich Text Editor**: TipTap editor for enhanced writing experience
 
-```bash
-cd client
-npm install
+### Backend (Server)
+- **Technology**: Java 21 with Spring Boot 3.5
+- **Database**: PostgreSQL for data persistence
+- **API**: RESTful APIs for client-server communication
+- **Build Tool**: Maven for dependency management
+
+## 🛠️ Prerequisites
+
+Before you start, make sure you have these installed on your computer:
+
+- **Node.js** (version 18 or higher) - [Download here](https://nodejs.org/)
+- **Java** (version 21 or higher) - [Download here](https://adoptium.net/)
+- **Docker** (optional, for containerized deployment) - [Download here](https://docker.com/)
+- **Git** - [Download here](https://git-scm.com/)
+
+## 🚀 Quick Start
+
+### Option 1: Using Docker (Recommended for beginners)
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/amitamrutiya/Journ-AI.git
+   cd JournAI
+   ```
+
+2. **Set up environment variables**
+   ```bash
+   # Copy the example environment files
+   cp client/.env.local.example client/.env.local
+   cp server/.env.example server/.env
+   # Edit the .env.local and .env files with your API keys
+   ```
+
+3. **Start the application**
+   ```bash
+   docker-compose up --build
+   ```
+
+4. **Access the application**
+   - Frontend: Open your browser and go to `http://localhost:3000`
+   - Backend API: Available at `http://localhost:8000`
+
+### Option 2: Manual Setup (For developers)
+
+#### Starting the Backend (Server)
+
+1. **Navigate to the server directory**
+   ```bash
+   cd server
+   ```
+
+2. **Set up environment variables**
+   ```bash
+   # Copy the example environment file
+   cp .env.example .env
+   # Edit the .env file with your database and API keys
+   ```
+
+3. **Run the Spring Boot application**
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+   
+   The server will start on `http://localhost:8000`
+
+#### Starting the Frontend (Client)
+
+1. **Open a new terminal and navigate to the client directory**
+   ```bash
+   cd client
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   # Copy the example environment file
+   cp .env.local.example .env.local
+   # Edit the .env.local file with your Clerk API keys
+   ```
+
+4. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+   
+   The client will start on `http://localhost:3000`
+
+## 📱 Features
+
+### Core Functionality
+- **Smart Journaling**: Write entries with a rich text editor
+- **Mood Tracking**: Log and visualize your emotional patterns
+- **AI Insights**: Get personalized reflection prompts and insights
+- **Calendar View**: Navigate through your journal entries by date
+- **Search & Filter**: Find specific entries quickly
+
+### AI-Powered Features
+- **Intelligent Prompts**: AI suggests writing prompts based on your mood
+- **Mood Analysis**: Automatic mood detection from your writing
+- **Pattern Recognition**: Identify trends in your emotional well-being
+- **Personalized Insights**: Get tailored advice and reflections
+
+## 🔐 Environment Variables
+
+You'll need to set up environment variables for both the client and server:
+
+### Client (.env.local)
+```env
+# Clerk Authentication
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+CLERK_SECRET_KEY=sk_test_...
+WEBHOOK_SECRET=whsec_...
 ```
 
-### 3. Run Development Server
+### Server (.env)
+```env
+# Database Configuration
+DATABASE_URL=jdbc:postgresql://localhost:5432/journai
+DATABASE_USERNAME=your_db_username
+DATABASE_PASSWORD=your_db_password
 
-```bash
-npm run dev
+# Clerk Configuration
+CLERK_SECRET_KEY=sk_test_...
+CLERK_WEBHOOK_SECRET=whsec_...
+
+# AI Configuration
+GEMINI_API_KEY=your_google_ai_api_key
+GEMINI_MODEL=gemini-1.5-flash
+
+# Server Configuration
+PORT=8000
+SPRING_PROFILES_ACTIVE=development
 ```
 
-### 4. Access the Journal
+### How to get API Keys:
+- **Clerk Keys**: Sign up at [clerk.com](https://clerk.com) and create a new application
+- **Gemini API Key**: Get it from [Google AI Studio](https://aistudio.google.com/app/apikey)
+- **Database**: Set up PostgreSQL locally or use a cloud service like Supabase
 
-Navigate to `http://localhost:3000/write`
+## 🤝 Contributing
 
-## 🎯 Usage Flow
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-1. **Write**: Enter text manually
-2. **Analyze**: Click "Analyze with AI" to get mood insights
-3. **Review**: View detected mood, summary, and reasoning
-4. **Save**: Login and save the journal entry (if authenticated)
 
-## 🔑 Key Features
+**Happy Journaling! 📝✨**
 
-- **Real-time Rich Text Editing**: TipTap editor with formatting toolbar
-- **AI-Powered Analysis**: Gemini AI provides mood detection and insights
-- **Authentication Integration**: Clerk-based auth with protected save functionality
-- **Responsive Design**: Works on desktop and mobile devices
-- **Error Handling**: Graceful fallbacks for API failures
-
-## 📱 Navigation
-
-- **Write** (`/write`) - Main journal writing interface
-- **Calendar** (`/calendar`) - _Coming soon_
-- **Insights** (`/insights`) - _Coming soon_
-
-## 🎨 UI/UX Highlights
-
-- Clean, modern interface with Tailwind CSS
-- Dark/light theme support
-- Loading states and feedback
-- Emoji-enhanced mood display
-- Gradient-styled AI analysis cards
-- Mobile-responsive design
+Built with ❤️ by [Amit Amrutiya](https://github.com/amitamrutiya)
