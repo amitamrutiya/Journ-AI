@@ -1,4 +1,12 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-cd client && npm run lint && npm run type-check
+cd client
+
+echo "Running ESLint..."
+npm run lint
+
+echo "Running TypeScript type check..."
+npm run type-check
+
+echo "Pre-commit checks completed!"
