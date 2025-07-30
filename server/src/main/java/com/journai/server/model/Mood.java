@@ -12,9 +12,5 @@ public enum Mood {
     FRUSTRATED,
     WORRIED,
     CONTENT,
-    LONELY,
-    OVERWHELMED,
-    HOPEFUL,
-    BORED,
     TIRED
 }
