@@ -101,33 +101,6 @@ export function useSaveJournal() {
   });
 }
 
-// Hook for PDF text extraction
-export function usePDFExtract() {
-  const { getToken } = useAuth();
-
-  return useMutation<PDFExtractResponse, Error, File>({
-    mutationFn: async (file: File) => {
-      const token = await getToken();
-      const formData = new FormData();
-      formData.append('pdf', file);
-
-      const response = await fetch(`${SERVER_URL}/api/pdf-extract`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to extract PDF text');
-      }
-
-      return response.json();
-    },
-  });
-}
-
 export function useGetUserJournals(selectedMonth?: string) {
   const { getToken, isSignedIn } = useAuth();
 

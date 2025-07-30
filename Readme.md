@@ -76,6 +76,30 @@ Before you start, make sure you have these installed on your computer:
 
 ### Option 2: Manual Setup (For developers)
 
+#### Quick Start with Makefile (Recommended)
+
+1. **Clone and setup**
+   ```bash
+   git clone https://github.com/amitamrutiya/Journ-AI.git
+   cd JournAI
+   make setup
+   ```
+
+2. **Set up environment variables**
+   ```bash
+   # Copy the example environment files
+   cp client/.env.local.example client/.env.local
+   cp server/.env.example server/.env
+   # Edit the files with your API keys
+   ```
+
+3. **Start development servers**
+   ```bash
+   make dev 
+   ```
+
+#### Manual Setup Step-by-Step
+
 #### Starting the Backend (Server)
 
 1. **Navigate to the server directory**
@@ -138,7 +162,52 @@ Before you start, make sure you have these installed on your computer:
 - **Pattern Recognition**: Identify trends in your emotional well-being
 - **Personalized Insights**: Get tailored advice and reflections
 
-## 🔐 Environment Variables
+## � Development
+
+### Available Commands
+
+#### Using Makefile (Recommended)
+```bash
+make help           # Show all available commands
+make setup          # Install dependencies
+make dev            # Start both client and server
+make dev-client     # Start only client
+make dev-server     # Start only server
+make build          # Build both for production
+make test           # Run all tests
+make clean          # Clean build artifacts
+make docker-up      # Start with Docker
+make docker-down    # Stop Docker services
+```
+
+#### Manual Commands
+
+**Frontend (Client)**
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Check code quality
+npm run test         # Run tests
+npm run test:e2e     # Run end-to-end tests
+```
+
+**Backend (Server)**
+```bash
+./mvnw spring-boot:run    # Start the application
+./mvnw test               # Run tests
+./mvnw clean package      # Build the application
+./mvnw clean              # Clean build artifacts
+```
+
+### Code Quality
+The project includes:
+- **ESLint** and **Prettier** for code formatting
+- **TypeScript** for type safety
+- **Husky** for Git hooks
+- **Commitlint** for conventional commit messages
+
+## �🔐 Environment Variables
 
 You'll need to set up environment variables for both the client and server:
 

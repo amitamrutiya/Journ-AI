@@ -13,7 +13,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import {
   useAnalyzeJournal,
   useGetJournalById,
-  usePDFExtract,
   useSaveJournal,
   useUpdateJournal,
 } from '@/hooks/use-journal-api';
