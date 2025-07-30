@@ -1,0 +1,65 @@
+server:
+  port: ${PORT:8000}
+
+spring:
+  application:
+    name: journai-server
+  
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://yamabiko.proxy.rlwy.net:31129/railway}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:mVJbHhWRBEWvKLIRRlFsnputvBLwyiEr}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        '[default_schema]': public
+        '[hbm2ddl.create_namespaces]': true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    default-property-inclusion: NON_NULL
+
+# Custom application properties
+app:
+  cors:
+    allowed-origins: ${CORS_ORIGIN:http://localhost:3000}
+  
+  clerk:
+    secret-key: ${CLERK_SECRET_KEY:}
+    webhook-secret: ${CLERK_WEBHOOK_SECRET:}
+  
+  gemini:
+    api-key: ${GEMINI_API_KEY:}
+    model: ${GEMINI_MODEL:gemini-1.5-flash}
+
+# Logging configuration
+logging:
+  level:
+    '[com.journai]': ${LOG_LEVEL:INFO}
+    '[org.springframework.security]': DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# Actuator endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always

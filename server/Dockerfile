@@ -1,18 +1,32 @@
-FROM node:24-alpine
+# Use OpenJDK 21 as base image
+FROM openjdk:21-jdk-slim
 
-RUN apk add --no-cache libc6-compat openssl
-
+# Set working directory
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm ci
+# Copy Maven wrapper and pom.xml
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
 
-COPY . .
+# Make mvnw executable
+RUN chmod +x ./mvnw
 
-RUN npx prisma generate
+# Download dependencies
+RUN ./mvnw dependency:go-offline -B
 
-RUN npm run build
+# Copy source code
+COPY src src
 
+# Build the application
+RUN ./mvnw clean package -DskipTests
+
+# Expose port
 EXPOSE 8000
 
-CMD ["npm", "start"]
+# Set environment variables
+ENV PORT=8000
+ENV SPRING_PROFILES_ACTIVE=production
+
+# Run the application
+CMD ["java", "-jar", "target/server-0.0.1-SNAPSHOT.jar"]
